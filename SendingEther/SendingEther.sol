@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 contract ReceiveEther {
-    fallback() external payable {}
+    receive() external payable {}
 
     function getBalance() public view returns(uint) {
         return(address(this).balance);
@@ -19,9 +19,10 @@ contract SendEther {
         require(sent, "Failed to send Ether");
     }
 
-    function sendViaCall(address payable _to) public payable {
+    function sendViaCall(address payable _to) public payable returns(bytes memory){
         //_to.call{value: msg.value, gas: 1000}("");
         (bool sent, bytes memory data) = _to.call{value: msg.value}("");
         require(sent, "Failed to send Ether");
+        return data;
     }
 }
