@@ -38,9 +38,9 @@ contract A {
     address public sender;
     uint public value;
 
-    function setVars(address _contract, uint _num) public payable {
-        (bool success, bytes memory data) = _contract.delegatecall(
-            abi.encodeWithSignature("setVars(uint256)", _num)
-        );
+    function setVars(address _contract, uint _num) public payable returns(bool, bytes memory) {
+        (bool success, bytes memory data) = _contract.delegatecall(abi.encodeWithSignature("setVars(uint256)", _num));
+        
+        return (success, data);
     }
 }
