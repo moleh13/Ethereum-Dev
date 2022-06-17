@@ -1,0 +1,43 @@
+strict digraph {
+subgraph cluster_589_MultiSigWallet {
+label = "MultiSigWallet"
+"589_constructor" [label="constructor"]
+"589_deposit" [label="deposit"]
+"589_receive" [label="receive"]
+"589_revokeTransaction" [label="revokeTransaction"]
+"589_getTransaction" [label="getTransaction"]
+"589_isConfirmed" [label="isConfirmed"]
+"589_submitTransaction" [label="submitTransaction"]
+"589_confirmTransaction" [label="confirmTransaction"]
+"589_executeTransaction" [label="executeTransaction"]
+"589_revokeTransaction" -> "589_isConfirmed"
+"589_confirmTransaction" -> "589_notConfirmed"
+"589_revokeTransaction" -> "589_txExists"
+"589_revokeTransaction" -> "589_notExecuted"
+"589_executeTransaction" -> "589_onlyOwner"
+"589_revokeTransaction" -> "589_onlyOwner"
+"589_confirmTransaction" -> "589_notExecuted"
+"589_submitTransaction" -> "589_onlyOwner"
+"589_confirmTransaction" -> "589_txExists"
+"589_executeTransaction" -> "589_notExecuted"
+"589_executeTransaction" -> "589_txExists"
+"589_confirmTransaction" -> "589_onlyOwner"
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"balance(address)" 
+"keccak256(bytes)" 
+"require(bool,string)" 
+"abi.encodePacked()" 
+"589_confirmTransaction" -> "keccak256(bytes)"
+"589_executeTransaction" -> "require(bool,string)"
+"589_revokeTransaction" -> "keccak256(bytes)"
+"589_receive" -> "balance(address)"
+"589_deposit" -> "balance(address)"
+"589_constructor" -> "require(bool,string)"
+"589_confirmTransaction" -> "abi.encodePacked()"
+"589_isConfirmed" -> "abi.encodePacked()"
+"589_revokeTransaction" -> "abi.encodePacked()"
+"589_revokeTransaction" -> "require(bool,string)"
+"589_isConfirmed" -> "keccak256(bytes)"
+}
+}
