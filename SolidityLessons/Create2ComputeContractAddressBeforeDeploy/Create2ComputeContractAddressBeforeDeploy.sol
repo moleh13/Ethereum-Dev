@@ -6,6 +6,8 @@ pragma solidity ^0.8.13;
 // demo
 
 contract Factory {
+    event Deployed(address addr, uint256 salt);
+    
     // 1. Get bytecode of contract to be deployed
     function getByteCode(address _owner, uint _foo) public pure returns (bytes memory) {
         bytes memory bytecode = type(TestContract).creationCode;
@@ -49,7 +51,13 @@ contract Factory {
                 mload(bytecode), // Load the size of code contained in the first 32 bytes
                 _salt // Salt from function arguments
             )
+
+            if iszero(extcodesize(addr)) {
+                revert(0, 0)
+            }
         }
+
+        emit Deployed(addr, _salt);
     }
 }
 
