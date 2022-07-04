@@ -47,7 +47,7 @@ contract("TestCompoundErc20", (accounts) => {
         }
     }
 
-    it("should supply and redeem", async() => {
+    it("should supply and redeem", async () => {
         await token.approve(testCompound.address, DEPOSIT_AMOUNT, { from: WHALE })
 
         let tx = await testCompound.supply(DEPOSIT_AMOUNT, {
